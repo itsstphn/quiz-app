@@ -48,15 +48,26 @@ const quizData = [
         correct: 'd'
     }
 ]
+const startBtn = document.querySelector('button.start-quiz');
+const startPage = document.querySelector('.start-page');
+const quizContainer = document.querySelector('.quiz-container');
+quizContainer.style.display = 'none';
 
-
+startBtn.addEventListener('click', function() {
+    startPage.style.display = 'none';
+    quizContainer.style.display = 'block';
+});
 
 const questionEl = document.getElementById('question');
 const a_text = document.getElementById('a_text');
 const b_text = document.getElementById('b_text');
 const c_text = document.getElementById('c_text');
 const d_text = document.getElementById('d_text');
-const submit = document.querySelector('button');
+const submit = document.querySelector('button.submit-answer');
+
+
+
+
 
 let currentQuiz = 0;
 
@@ -89,7 +100,6 @@ function check() {
 
         if(option.checked) {
             if(option.id === currentQuizData.correct) {
-                console.log('correect!');
 
                 option.checked = false;
                 if((currentQuiz +1) < quizData.length) {
@@ -102,22 +112,26 @@ function check() {
                 alert('Oops, Try Again.');
                 option.checked = false;
             }
-        } 
+        }
     })
 
 }
 
 submit.addEventListener('click', check);
 
+
 function congrats() {
     const quiz = document.querySelector('.quiz-header');
-    console.log(quiz);
     quiz.innerHTML = '';
     const congratsMessage = document.createElement('h1');
     congratsMessage.classList.add('congrats');
     congratsMessage.innerText = 'Congratulations!';
     congratsMessage.style.color = '#01ab87';
-    quiz.appendChild(congratsMessage);       
+    quiz.appendChild(congratsMessage);   
+    const messageDetails = document.createElement('p');
+    messageDetails.innerText = 'You Passed!';
+    messageDetails.style.textAlign = 'center';
+    quiz.appendChild(messageDetails);
 }
 
 

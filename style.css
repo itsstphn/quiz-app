@@ -15,12 +15,21 @@ body {
     min-height: 100vh;
 }
 
-.quiz-container {
+.quiz-container, .start-page {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 15px 8px rgba(0, 0, 0, .1);
     width: 400px;
     overflow: hidden;
+}
+
+.start-page {
+    padding: 2rem;
+}
+
+.start-page h1 {
+    font-size: 1.8rem;
+    text-align: center;
 }
 
 .quiz-header {
