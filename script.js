@@ -10,34 +10,46 @@ const quizData = [
         correct: 'b'
     }, {
         question: 'What is the most used programming language?',
-        a: 'Java',
-        b: 'C',
-        c: 'Python',
-        d: 'Javascript',
+        choices: {
+            a: 'Java',
+            b: 'C',
+            c: 'Python',
+            d: 'Javascript'
+        },
         correct: 'd'
     }, {
         question: 'Who is the president of the Philippines?',
-        a: 'Stephen Talorong',
-        b: 'Donald Trump',
-        c: 'Jessica Soho',
-        d: 'Rodrigo Duterte',
+        choices: {
+            a: 'Stephen Talorong',
+            b: 'Donald Trump',
+            c: 'Jessica Soho',
+            d: 'Rodrigo Duterte'
+        },
         correct: 'd'
     }, {
         question: 'What does HTML stand for?',
-        a: 'How To Make Lumpia',
-        b: 'Home Tool Markup Language',
-        c: 'HyperText Markup Language',
-        d: 'HypoText Markup Language',
+        choices: {
+
+            a: 'How To Make Lumpia',
+            b: 'Home Tool Markup Language',
+            c: 'HyperText Markup Language',
+            d: 'HypoText Markup Language'
+        },
         correct: 'c'
     }, {
         question: 'What year was Javascript launched?',
-        a: '2020',
-        b: '2019',
-        c: '2018',
-        d: 'None of the above',
+        choices: {
+            a: '2020',
+            b: '2019',
+            c: '2018',
+            d: 'None of the above'
+
+        },
         correct: 'd'
     }
 ]
+
+
 
 const questionEl = document.getElementById('question');
 const a_text = document.getElementById('a_text');
@@ -46,15 +58,14 @@ const c_text = document.getElementById('c_text');
 const d_text = document.getElementById('d_text');
 const submit = document.querySelector('button');
 
-
 let currentQuiz = 0;
 
-const currentQuizData = quizData[currentQuiz];
+
+let currentQuizData = quizData[currentQuiz];
 
 loadQuiz();
-
 function loadQuiz() {
-    console.log(currentQuizData);
+    currentQuizData = quizData[currentQuiz];
     questionEl.innerHTML = currentQuizData.question;
     a_text.innerHTML = currentQuizData.choices.a;
     b_text.innerHTML = currentQuizData.choices.b;
@@ -63,24 +74,51 @@ function loadQuiz() {
 
 
 
-    // currentQuiz++;
+    
 }
 
+
+
 function check() {
-    const values = Object.values(currentQuizData.choices);
+    const aOption = document.querySelector('#a');
+    const bOption = document.querySelector('#b');
+    const cOption = document.querySelector('#c');
+    const dOption = document.querySelector('#d');
+    const options = [aOption, bOption, cOption, dOption];
+    options.forEach(option => {
 
+        if(option.checked) {
+            if(option.id === currentQuizData.correct) {
+                console.log('correect!');
 
-    values.forEach(item => {
-        // console.log(item);
-        if(item.checked) {
-            if(item === currentQuizData.correct) {
-                console.log("Correct!");
+                option.checked = false;
+                if((currentQuiz +1) < quizData.length) {
+                    currentQuiz++;
+                    loadQuiz();
+                } else {
+                    congrats();
+                }
+            } else {
+                alert('Oops, Try Again.');
+                option.checked = false;
             }
-        }
+        } 
     })
+
 }
 
 submit.addEventListener('click', check);
+
+function congrats() {
+    const quiz = document.querySelector('.quiz-header');
+    console.log(quiz);
+    quiz.innerHTML = '';
+    const congratsMessage = document.createElement('h1');
+    congratsMessage.classList.add('congrats');
+    congratsMessage.innerText = 'Congratulations!';
+    congratsMessage.style.color = '#01ab87';
+    quiz.appendChild(congratsMessage);       
+}
 
 
 
